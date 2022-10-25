@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>What Todo?</title>
+  <script defer src="runtime.bundle.js?9fb801df0556ef02ff8c"></script><script defer src="index.bundle.js?9fb801df0556ef02ff8c"></script></head>
+
+  <body>
+    <span><h1 class="header"> What Todo? </h1></span>
+
+    <div class="sidebar">
+        <div class="mainMenu">
+            <div class="mainMenuOptions project button" id="Inbox"><img src=337c9991bda7f0e903e8.jpg alt="inbox icon" size="1.5rem" />Inbox</div>
+            <div class="mainMenuOptions project button" id="Today"><img src=273ad26e0213d32c8835.jpg alt="today icon" size="1.5rem" />Today</div>
+            <div class="mainMenuOptions project button" id="This Week"><img src=503cfc1ebf9a57391119.jpg alt="week icon" size="1.5rem" />This Week</div>
+        </div>
+               
+        <div class="projectContainer">
+            <div class="projectTitle">Projects</div>
+            <div class="projectList">
+                <div class="project button" id="Leetcode"><img src=55c4de0d6968889bf3d4.jpg alt="project icon" size="1.5rem">Leetcode</div>
+            </div>
+            <div class="addProject">
+                <!-- Hide class used to toggle between hiding the Add Project button vs the prompt to actually create one -->
+              <div class="projectAction">
+                <div class="projectBtn button" id="new"><img src=d3511021cc344565582d.jpg alt="add project icon" size="1.5rem">Add Project</div>
+              </div>
+              <!-- Added additional projectPrompt class to style separately -->
+              <div class="projectAction projectPrompt hide">
+                <label for="addProjectInput">Name:</label>
+                <input type="text" class="addProjectInput" id="addProjectInput">
+                <div class="projectBtns">
+                  <div class="projectBtn" id="add">Add</div>
+                  <div class="projectBtn" id="cancel">Cancel</div>
+              </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <div class="body">
+      <div class="bodyTitle">
+
+      </div>
+      <div class="bodyContent">
+        <div class="todoList">
+          <div class="todo" id="study"></div>
+
+        </div>
+        <div class="addTodo">
+          <div class="todoAction todoBtn" id="new">
+            <img src=9eeb252e8babeda2b0b2.jpg alt="add Todo button"> Add Todo
+          </div>
+
+          <form class="todoAction hide" action="" method="post" onsubmit="handleSubmit(event)">
+            <div class="todoPrompt">
+              <label for="todoName">Title:</label>
+              <input type="text" name="todoName" id="todoName">
+            </div>
+            <div class="todoPrompt">
+              <label for="todoDescription">Description:</label>
+              <input type="text" name="todoDescription" id="todoDescription">
+            </div>
+            <div class="todoPrompt">
+              <label for="dueDate">Due Date</label>
+              <input type="date" name="dueDate" id="dueDate">
+            </div>
+            <div class="todoPrompt">
+              <label for="priority">Priority</label>
+              <input type="text" name="priority" id="priority">
+            </div>
+            <div class="todoPrompt">
+              <label for="project">Project</label>
+              <input type="text" name="project" id="project">
+            </div>
+
+            <button type="submit" class="submit" id="add">Add</button>
+            <button type="button" class="todoBtn" id="cancel">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <footer><div class="footer">Copyright &copy; 2022 Jinsungjun</div></footer>
+
+  </body>
+</html>
