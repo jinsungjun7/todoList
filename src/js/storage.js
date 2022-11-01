@@ -57,7 +57,8 @@ class Storage {
         const weekProject = this.getProject('This Week');
         weekProject.clearTodo();
         for (let i = 0; i < this.todoList.length; i ++) {           
-            if (differenceInCalendarDays(this.todoList[i].getDate(), new Date()) <= 7) {
+            let difference = differenceInCalendarDays(this.todoList[i].getDate(), new Date());
+            if ( difference <= 7 && difference >= 0) {
                 weekProject.addTodo(this.todoList[i])
             }
         }
@@ -74,6 +75,6 @@ localStorage.createProject('Today');
 localStorage.createProject('This Week');
 localStorage.createProject('Leetcode');
 
-localStorage.createTodo('study', 'hi', new Date(2022, 9, 24), 'high', 'Leetcode');
+localStorage.createTodo('study', 'hi', '2022-10-24', 'high', 'Leetcode');
 
 export { localStorage };

@@ -40,50 +40,55 @@
 
     
     
-    <div class="body">
-      <div class="bodyTitle">
-
-      </div>
-      <div class="bodyContent">
-        <div class="todoList">
-          <div class="todo" id="study"></div>
-
-        </div>
-        <div class="addTodo">
-          <div class="todoAction todoBtn" id="new">
-            <img src=<%=require("../src/images/addTodo.jpg")%> alt="add Todo button"> Add Todo
-          </div>
-
-          <form class="todoAction hide" action="" method="post" onsubmit="handleSubmit(event)">
-            <div class="todoPrompt">
-              <label for="todoName">Title:</label>
-              <input type="text" name="todoName" id="todoName">
-            </div>
-            <div class="todoPrompt">
-              <label for="todoDescription">Description:</label>
-              <input type="text" name="todoDescription" id="todoDescription">
-            </div>
-            <div class="todoPrompt">
-              <label for="dueDate">Due Date</label>
-              <input type="date" name="dueDate" id="dueDate">
-            </div>
-            <div class="todoPrompt">
-              <label for="priority">Priority</label>
-              <input type="text" name="priority" id="priority">
-            </div>
-            <div class="todoPrompt">
-              <label for="project">Project</label>
-              <input type="text" name="project" id="project">
-            </div>
-
-            <button type="submit" class="submit" id="add">Add</button>
-            <button type="button" class="todoBtn" id="cancel">Cancel</button>
-          </form>
-        </div>
-      </div>
-    </div>
     
-    <footer><div class="footer">Copyright &copy; 2022 Jinsungjun</div></footer>
-
-  </body>
-</html>
+      
+      <div class="body">
+        <div class="bodyTitle">
+  
+        </div>
+        <div class="bodyContent">
+          <div class="todoList">
+            <div class="todo" id="study"></div>
+  
+          </div>
+          <div class="addTodo">
+            <div class="todoAction todoBtn" id="new">
+              <div class="plusSymbol">&#8853;</div> Add Todo
+            </div>
+  
+            <form class="todoAction hide" action="" method="" onsubmit="handleSubmit(event)" >
+              <div class="todoPrompt">
+                <input type="text" name="todoName" id="todoName" placeholder="Title" required>
+              </div>
+              <div class="todoPrompt">
+                <input type="text" name="todoDescription" id="todoDescription" placeholder="Description">
+              </div>
+              <div class="todoPrompt">
+                <input type="date" name="dueDate" id="dueDate" required>
+              </div>
+              <div class="todoPrompt">
+                <select name="priority" id="priority" required placeholder="Priority">
+                  <option value="Low" selected>Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+              <div class="todoPrompt">
+                <label for="project">Project</label>
+                <select name="project" id="project" required> 
+                  <option value="Inbox" selected>Inbox</option>
+                  <option value="Leetcode">Leetcode</option>
+                </select>
+              </div>
+  
+              <button type="submit" class="submit" id="add">Add</button>
+              <button type="button" class="todoBtn" id="cancel">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <footer><div class="footer">Copyright &copy; 2022 Jinsungjun</div></footer>
+  
+    </body>
+  </html>

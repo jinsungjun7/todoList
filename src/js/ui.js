@@ -55,9 +55,21 @@ function createTodoElement(name, date) {
     todoContainer.setAttribute('id', `${name}`);
     
     let todoName = document.createElement('div');
-    todoName.innerHTML = name;
+    todoName.classList.add('todoName');
+    let selector = document.createElement('button');
+    selector.classList.add('completeBtn');
+    selector.type = 'button';
+    selector.setAttribute('id', name);
+    selector.style.width = '1rem';
+    selector.style.height = '1rem';
+    selector.style.borderRadius = '100%';
+    selector.style.border = '1px solid black';
+    selector.style.marginRight = '16px'
+    todoName.appendChild(selector);
+    todoName.innerHTML += ' ' + name;
 
     let todoDate = document.createElement('div');
+    todoDate.classList.add('todoDate');
     todoDate.innerHTML = format(date,'MM-dd-yyyy');
 
     todoContainer.appendChild(todoName);

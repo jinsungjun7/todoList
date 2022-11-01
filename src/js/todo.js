@@ -1,8 +1,18 @@
+import {parseISO} from 'date-fns';
+
+
 class Todo {
     constructor(title, description, dueDate, priority, project = 'Inbox') {
         this.title = title;
         this.description = description;
-        this.dueDate = new Date(dueDate);
+
+        // appending the current time to correct any timezone discrepancy
+        let now = new Date();
+
+        dueDate = dueDate.split('-');
+        this.dueDate = new Date(dueDate[0], Number(dueDate[1])-1, dueDate[2], now.getHours(), now.getMinutes(),now.getSeconds() );
+
+
         this.priority = priority;
         this.project = project;
     }

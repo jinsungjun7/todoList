@@ -53,8 +53,8 @@ table {
 }
 
 @font-face {
-    font-family: 'Orange';
-    src: url('../fonts/orangejuice2.0.ttf');
+    font-family: 'LemonMilk';
+    src: url('../fonts/LemonMilk.otf');
 }
 
 @font-face {
@@ -72,8 +72,8 @@ body {
 }
 
 .header {
-    font-family: 'orange';
-    font-size:4rem;
+    font-family: 'LemonMilk';
+    font-size:3rem;
     padding:16px;
     color:white;
     align-self:center;
@@ -110,6 +110,9 @@ span {
 
 .button:hover, .addProject:hover {
     background-color:white;
+    border-radius: 5px;
+    padding:8px;
+    cursor:pointer;
 }
 
 .projectContainer {
@@ -131,8 +134,64 @@ span {
     display:none;
 }
 
-.addTodoBtn:hover {
-    background-color:lightgray;
+.body {
+	display:flex;
+    flex-direction:column;
+    padding: 32px 64px;
+    gap:8px;
+}
+
+.bodyTitle {
+    font-size:2.5rem;
+    font-weight:900;
+}
+
+.todoList {
+    padding:16px 0;
+}
+
+.todo {
+    display:flex;
+    width:75%;
+    justify-content:space-between;
+    border: 0.1px solid gray;
+    padding:8px;
+    border-radius:5px;
+    align-items: center;
+
+}
+
+.todoAction.todoBtn {
+    display:flex;
+    align-items:center;
+    width:fit-content;
+    gap:4px;
+    margin: 8px 0;
+    border-radius:20px;
+}
+
+.todoAction.todoBtn:hover {
+    color:gray;
+    cursor: pointer;  
+    padding:2px;  
+}
+
+.plusSymbol {
+    font-size:1.25rem;
+}
+
+.completeBtn {
+    background-color: white;
+}
+.completeBtn:hover {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+
+.todoAction.todoBtn.hide {
+    display:none;
 }
 
 footer {

@@ -1,11 +1,14 @@
 import { localStorage } from './storage.js';
 import { displayProjectPage, createProjectElement } from './ui.js';
+import { format, startOfToday } from 'date-fns';
 
 function pageSet() {
     const projectBtns = document.querySelectorAll('.project');
     projectBtns.forEach(btn => btn.addEventListener('click', (e) => {
         let btnId = btn.getAttribute('id');
         displayProjectPage(btnId);
+        clearTodoPrompt();
+        resetPage();
     }));    
 }
 
@@ -43,23 +46,18 @@ function newTodo() {
             clearTodoPrompt();
         }   
     }));
-
-    // const submitBtn = document.querySelector('.submit');
-    // submitBtn.addEventListener('submit', (e) => {
-    //     handleSubmit();
-    //     todoActions.forEach(action => action.classList.toggle('hide'));
-    // })
 }
 
 function clearTodoPrompt() {
     document.getElementById('todoName').value = '';
     document.getElementById('todoDescription').value = '';
     document.getElementById('dueDate').value = '';
-    document.getElementById('priority').value = '';
-    document.getElementById('project').value = '';
+    document.getElementById('priority').value = 'Low';
+    
+    const bodyTitle = document.querySelector('.bodyTitle');
+    document.getElementById('project').value = bodyTitle.textContent;
 }
 
-// function handleSubmit() {
 function handleSubmit(event) {
     console.log('test');
     event.preventDefault();
@@ -73,24 +71,26 @@ function handleSubmit(event) {
     const todoActions = document.querySelectorAll('.todoAction');
     todoActions.forEach(action => action.classList.toggle('hide'));
     clearTodoPrompt();
-    return false;
-    
 }
 
-// function handleSubmit() {
-//     let name = document.getElementById('todoName').value;
-//     let description = document.getElementById('todoDescription').value;
-//     let dueDate = document.getElementById('dueDate').value;
-//     let priority = document.getElementById('priority').value;
-//     let project = document.getElementById('project').value;
-//     localStorage.createTodo(name, description, dueDate, priority, project);
-//     todoActions.forEach(action => action.classList.toggle('hide'));
-//     clearTodoPrompt();
-// }
+function dateMin() {
+    let dateInput = document.getElementById('dueDate');
+    let today = format(startOfToday(), 'yyyy-MM-dd');
+    dateInput.setAttribute('min', today);
+}
+
+function resetPage() {
+    let form = document.querySelector('form');
+    let todoBtn = document.querySelector('.todoAction.todoBtn');
+
+    form.classList.add('hide');
+    todoBtn.classList.remove('hide');
+}
 
 export {
     pageSet,
     newProject,
     newTodo, 
-    handleSubmit
+    handleSubmit,
+    dateMin
 }
