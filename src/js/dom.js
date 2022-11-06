@@ -3,6 +3,8 @@ import { displayProjectPage, createProjectElement, completeTodo, removeProjectEl
 import { format, startOfToday } from 'date-fns';
 import {populateStorage} from './index.js';
 
+
+//displays the page based on the button clicked on the sidebar (i.e. projects)
 function pageSet() {
     const projectBtns = document.querySelectorAll('.project');
     projectBtns.forEach(btn => btn.addEventListener('click', (e) => {
@@ -13,12 +15,15 @@ function pageSet() {
         displayProjectPage(btnId);
         clearTodoPrompt();
         resetPage();
-    }));    
+    }));   
+    
+    //running these at the beginning from index.js calling pageSet()
     deleteProject();
     expandTodo();
     clearTodoPrompt();
 }
 
+//Add Project button functionality => 
 function newProject() {
     const projectActions = document.querySelectorAll('.projectAction');
     const projectBtns = document.querySelectorAll('.projectBtn');
@@ -38,6 +43,8 @@ function newProject() {
                 alert("You cannot have duplicate project names.");
             }
             document.getElementById('addProjectInput').value = '';
+
+            //set up functionality for remove project button and update localStorage with new project
             deleteProject();
             populateStorage();
         } else if (btn.getAttribute('id') == 'cancel') {
@@ -46,7 +53,7 @@ function newProject() {
     }))
 }
 
-
+//Add todo button to display form and set up button functionality
 function newTodo() {
     const todoBtns = document.querySelectorAll('.todoBtn');
     todoBtns.forEach(btn => btn.addEventListener('click', (e) => {
@@ -64,11 +71,13 @@ function newTodo() {
     }));
 }
 
+//hides add todo button to prevent unexpected closing
 function hideAddTodo() {
     const todoActions = document.querySelectorAll('.todoAction');
     todoActions.forEach(action => action.classList.toggle('hide'));
 }
 
+//resets form inputs
 function clearTodoPrompt() {
     document.getElementById('todoName').value = '';
     document.getElementById('todoDescription').value = '';

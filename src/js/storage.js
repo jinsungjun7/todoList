@@ -45,9 +45,7 @@ class Storage {
     setProjectList(projects) {
         this.projectList = [];
         projects.forEach(project => this.createProject(project.name));
-        for (let i=3; i<projects.length; i++) {
-            createProjectElement(projects[i].name);
-        }
+        
     }
 
     getTodoList() {

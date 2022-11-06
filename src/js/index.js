@@ -1,6 +1,6 @@
 require('!style-loader!css-loader!../css/style.css');
 import {pageSet, newProject, newTodo, handleSubmit, dateMin, expandTodo, setUpEditBtn} from './dom.js';
-import {displayProjectPage, completeTodo, todoNameChecker} from './ui.js';
+import {displayProjectPage, completeTodo, todoNameChecker, createProjectElement} from './ui.js';
 import {myData} from './storage.js';
 
 // local storage set up
@@ -24,14 +24,20 @@ function populateStorage() {
 }
 
 function setStorage() {
-    if (localStorage.getItem('todoList')) {
-    var todoList = JSON.parse(localStorage.getItem('todoList'));
-    }
-    var projectList = JSON.parse(localStorage.getItem('projectList'));
-
+    
+    let projectList = JSON.parse(localStorage.getItem('projectList'));
     myData.setProjectList(projectList);
-    myData.setTodoList(todoList);
+    
+    if (localStorage.getItem('todoList')) {
+        const todoList = JSON.parse(localStorage.getItem('todoList'));
+        myData.setTodoList(todoList);
+    }
+}
 
+//set up sidebar of projects
+let projects = JSON.parse(localStorage.getItem('projectList'));
+for (let i=3; i<projects.length; i++) {
+    createProjectElement(projects[i].name);
 }
 
 // localStorage.setItem('projects', JSON.stringify.)

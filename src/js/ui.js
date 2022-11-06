@@ -2,6 +2,7 @@ import {myData} from './storage.js';
 import {Project} from './project.js';
 import { format } from 'date-fns';
 import {handleExpand} from './dom.js';
+import { populateStorage } from './index.js';
 
 function displayProjectPage(btnId) {
     let bodyTitle = document.querySelector('.bodyTitle');
@@ -127,6 +128,8 @@ function completeTodo() {
         };
         btn.parentElement.outerHTML = btn.parentElement.outerHTML;
         btn.outerHTML = btn.outerHTML;   
+
+        populateStorage();
         
 
     }));
