@@ -11,11 +11,13 @@ module.exports = {
     runtimeChunk: 'single',
   },
   entry: { 
-    index: './src/js/index.js'
+    index: './src/js/index.js',
+    storage: './src/js/storage.js'
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: "[name][ext]",
     clean: true,
   },
   plugins: [

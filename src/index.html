@@ -10,15 +10,14 @@
 
     <div class="sidebar">
         <div class="mainMenu">
-            <div class="mainMenuOptions project button" id="Inbox"><img src=<%=require("../src/images/inbox.jpg")%> alt="inbox icon" size="1.5rem" />Inbox</div>
-            <div class="mainMenuOptions project button" id="Today"><img src=<%=require("../src/images/today.jpg")%> alt="today icon" size="1.5rem" />Today</div>
-            <div class="mainMenuOptions project button" id="This Week"><img src=<%=require("../src/images/week.jpg")%> alt="week icon" size="1.5rem" />This Week</div>
+            <div class="mainMenuOptions project button" id="Inbox"><img src=<%=require("../src/images/inbox.jpg")%> alt="inbox icon" size="1.5rem">Inbox</div>
+            <div class="mainMenuOptions project button" id="Today"><img src=<%=require("../src/images/today.jpg")%> alt="today icon" size="1.5rem">Today</div>
+            <div class="mainMenuOptions project button" id="This Week"><img src=<%=require("../src/images/week.jpg")%> alt="week icon" size="1.5rem">This Week</div>
         </div>
                
         <div class="projectContainer">
             <div class="projectTitle">Projects</div>
             <div class="projectList">
-                <div class="project button" id="Leetcode"><img src=<%=require("../src/images/project.jpg")%> alt="project icon" size="1.5rem">Leetcode</div>
             </div>
             <div class="addProject">
                 <!-- Hide class used to toggle between hiding the Add Project button vs the prompt to actually create one -->
@@ -27,8 +26,7 @@
               </div>
               <!-- Added additional projectPrompt class to style separately -->
               <div class="projectAction projectPrompt hide">
-                <label for="addProjectInput">Name:</label>
-                <input type="text" class="addProjectInput" id="addProjectInput">
+                <input type="text" class="addProjectInput" id="addProjectInput" placeholder="Name">
                 <div class="projectBtns">
                   <div class="projectBtn" id="add">Add</div>
                   <div class="projectBtn" id="cancel">Cancel</div>
@@ -47,47 +45,46 @@
   
         </div>
         <div class="bodyContent">
-          <div class="todoList">
-            <div class="todo" id="study"></div>
-  
+          <div class="todoList">     
           </div>
           <div class="addTodo">
             <div class="todoAction todoBtn" id="new">
               <div class="plusSymbol">&#8853;</div> Add Todo
             </div>
-  
-            <form class="todoAction hide" action="" method="" onsubmit="handleSubmit(event)" >
-              <div class="todoPrompt">
-                <input type="text" name="todoName" id="todoName" placeholder="Title" required>
-              </div>
-              <div class="todoPrompt">
-                <input type="text" name="todoDescription" id="todoDescription" placeholder="Description">
-              </div>
-              <div class="todoPrompt">
-                <input type="date" name="dueDate" id="dueDate" required>
-              </div>
-              <div class="todoPrompt">
-                <select name="priority" id="priority" required placeholder="Priority">
-                  <option value="Low" selected>Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
-              </div>
-              <div class="todoPrompt">
-                <label for="project">Project</label>
-                <select name="project" id="project" required> 
-                  <option value="Inbox" selected>Inbox</option>
-                  <option value="Leetcode">Leetcode</option>
-                </select>
-              </div>
-  
-              <button type="submit" class="submit" id="add">Add</button>
-              <button type="button" class="todoBtn" id="cancel">Cancel</button>
-            </form>
           </div>
         </div>
       </div>
-      
+
+      <form class="todoAction hide" action="" method="" onsubmit="handleSubmit(event)" id="todoForm">
+        <div class="todoPrompt todoName">
+          <input type="text" name="todoName" id="todoName" placeholder="Title" required maxlength="32">
+        </div>
+        <div class="todoPrompt todoDescription">
+          <textarea id="todoDescription" placeholder="Description" form_id="todoForm" maxlength="128"></textarea>
+        </div>
+        <div class="todoPrompt dueDate">
+          <input type="date" name="dueDate" id="dueDate" required>
+        </div>
+        <div class="todoPrompt priority">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority" required placeholder="Priority">
+            <option value="Low" selected>Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div class="todoPrompt todoProject">
+          <label for="project">Project</label>
+          <select name="project" id="project" required> 
+            <option value="Inbox" selected>Inbox</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit formBtn" id="add">Add</button>
+        <button type="button" class="todoBtn formBtn" id="cancel">Cancel</button>
+        <button type="button" class="saveEdit todoBtn formBtn hide" id="saveEdit">Save</button>
+      </form>
+
       <footer><div class="footer">Copyright &copy; 2022 Jinsungjun</div></footer>
   
     </body>

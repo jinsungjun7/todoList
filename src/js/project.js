@@ -24,7 +24,7 @@ class Project {
         let i = 0;
         let todoExist = true;
         while (todoExist) {
-            if (this.todoList[i].getName() == todo.getName()) {
+            if (this.todoList[i].getName() == todo) {
                 this.todoList.splice(i,1);
                 todoExist = false;
             }

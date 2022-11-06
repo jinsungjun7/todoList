@@ -108,17 +108,38 @@ span {
     padding-left: 16px;
 }
 
+.button.projectName {
+    gap:0;
+}
+
 .button:hover, .addProject:hover {
     background-color:white;
     border-radius: 5px;
-    padding:8px;
     cursor:pointer;
 }
 
 .projectContainer {
     display:flex;
     flex-direction:column;
-    gap:16px;
+    gap:8px;
+}
+
+.projectContent {
+    display:flex;
+    flex-grow:1;
+    gap:6px;
+}
+
+.projectList {
+    display:flex;
+    flex-direction: column;
+    padding: 8px 0;
+    gap:6px;
+}
+
+.delProject:hover {
+    cursor:pointer;
+    filter: drop-shadow(0 0 1px black);
 }
 
 .projectTitle {
@@ -126,9 +147,50 @@ span {
     font-weight:900;
 }
 
-.projectOptions {
-    padding-bottom:8px;
+.projectPrompt {
+    display:grid;
+    grid-template-rows: 1fr 1fr;
+    padding:6px;
 }
+
+#addProjectInput, .projectBtns {
+    height:1rem;
+    align-self:center;
+    width:75%;
+    justify-self:center;
+}
+
+.projectBtns {
+    padding-top:6px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.projectBtns .projectBtn {
+    border:2px solid black;
+    border-radius: 10px;
+    padding:8px;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+}
+
+.projectBtns .projectBtn:hover {
+    border:2.5px solid black;
+}
+
+.projectBtns .projectBtn:active {
+    opacity:.5;
+}
+
+.projectBtns .projectBtn#add {
+    background:rgba(30, 255, 128, 0.8);
+}
+
+.projectBtns .projectBtn#cancel {
+    background:rgba(255, 41, 30, 0.8);
+}
+
 
 .hide {
     display:none;
@@ -151,14 +213,47 @@ span {
 }
 
 .todo {
-    display:flex;
-    width:75%;
-    justify-content:space-between;
+    display:grid;
+    width:65%;
     border: 0.1px solid gray;
     padding:8px;
     border-radius:5px;
-    align-items: center;
+    gap:8px;
+    grid-template-columns: .1fr .1fr 2fr;
+}
 
+.todoContent {
+    grid-column: 3 / -1;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    cursor:pointer;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding-left:24px;
+    align-items:start;
+}
+
+.todoContent:hover {
+    font-weight:bold;
+}
+
+.todoContent .todoName {
+    word-break: keep-all;
+    grid-column: 1/3;
+    grid-row: 1/1;
+    justify-self:start;
+    align-self:start;
+}
+
+.todoContent .todoDate {
+    grid-column: 3/3;
+    justify-self:end;
+}
+
+.todoContent .description {
+    padding-top:6px;
+    grid-column: 1 / -1;
+    grid-row: 2 / 2;
 }
 
 .todoAction.todoBtn {
@@ -180,19 +275,139 @@ span {
     font-size:1.25rem;
 }
 
+.completeBtn, .editBtn {
+    align-self:start;
+    justify-self:start;
+    cursor: pointer; 
+
+}
 .completeBtn {
     background-color: white;
+    grid-column: 1/1;
+    grid-row: 1/1;
+    height:1.25rem;
+    width:1.25rem;
+
 }
+
 .completeBtn:hover {
-    border: 1px solid black;
-    cursor: pointer;
+    filter: drop-shadow(0 0 1px black);
 }
 
+.editBtn {
+    background-color: white;
+    grid-column: 2/2;
+    padding:0;
+}
 
+.editBtn img {
+    height:1.25rem;
+    width:1.25rem;
+}
+
+.editBtn img:hover {
+    filter: drop-shadow(0 0 1px black);
+}
 
 .todoAction.todoBtn.hide {
     display:none;
 }
+
+.complete {
+    color:gray;
+    text-decoration: line-through;
+}
+
+form {
+    position: absolute;
+    justify-self:center;
+    align-self: center;
+    border: .1px solid black;
+    border-radius: 20px;
+    padding:16px 32px;
+    background: var(--gray);
+    
+    display:grid;
+    
+    grid-template-columns:.5fr 1fr 1fr .5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+}
+
+input, #todoDescription {
+    border-radius: 5px;
+    border: 2px solid black;
+    padding:3px 4px;
+}
+
+
+#todoDescription {
+    resize:none;
+    font-family: 'Roboto';
+    width:100%;
+}
+
+form .todoName {
+    justify-self:end;
+    align-self:end;
+    grid-row:1/1;
+    grid-column: 2/3;
+}
+
+form .todoDescription {
+    grid-row: 2/2;
+    grid-column: 2/ 4;
+    display:flex;
+}
+
+form .dueDate {
+    grid-row: 1/1;
+    grid-column: 3/4;
+    align-self:end;
+    justify-self:end;
+}
+
+#dueDate {
+    height:1rem;
+}
+
+form .priority {
+    grid-row:3/3;
+    grid-column: 2/2;
+}
+
+form .todoProject {
+    grid-row: 3/3;
+    grid-column: 3/3;
+    margin-left: -64px;
+}
+
+form .priority, .todoProject {
+    color: white;
+    font-size:.75rem;
+}
+
+form button {
+    height:1.5rem;
+    width:50%;
+}
+form button#add {
+    grid-row: 4/4;
+    grid-column: 2/2;
+}
+
+form button#cancel {
+    grid-row: 4/4;
+    grid-column: 3/3;
+}
+
+form button#saveEdit {
+    grid-row: 4/4;
+    grid-column: 2/3;
+    justify-content:center;
+}
+
+
 
 footer {
     grid-row: 3 / 3;

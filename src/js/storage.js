@@ -13,10 +13,20 @@ class Storage {
     createTodo(title, description, dueDate, priority, projectName) {
         let newTodo = new Todo(title, description, dueDate, priority, projectName);
         this.todoList.push(newTodo);
-        
 
-        let project = this.getProject(projectName);
-        project.addTodo(newTodo);
+
+        if (projectName != "Inbox") {
+            let project = this.getProject(projectName);
+            project.addTodo(newTodo);
+        }
+    }
+
+    getTodo(todoName) {
+        let i = 0;
+        while (this.todoList[i].getName() != todoName) {
+            i++;
+        }
+        return this.todoList[i];
     }
 
     getProject(projectName) {
@@ -35,7 +45,14 @@ class Storage {
         return this.todoList;
     }
 
-    checkDuplicate(name) {
+    checkDuplicateTodo(name) {
+        if (this.todoList.some(todo => todo.getName() == name)) {
+            return false;
+        }
+        return true;
+    }
+
+    checkDuplicateProject(name) {
         if (this.projectList.some(project => project.getName() == name)) {
             return false;
         }
@@ -45,8 +62,8 @@ class Storage {
     generateToday() {
         const todayProject = this.getProject('Today');
         todayProject.clearTodo();
-        for (let i = 0; i < this.todoList.length; i ++) {
-            if (isToday(this.todoList[i].getDate())) {  
+        for (let i = 0; i < this.todoList.length; i++) {
+            if (isToday(this.todoList[i].getDate())) {
                 todayProject.addTodo(this.todoList[i])
             }
         }
@@ -56,14 +73,64 @@ class Storage {
     generateWeek() {
         const weekProject = this.getProject('This Week');
         weekProject.clearTodo();
-        for (let i = 0; i < this.todoList.length; i ++) {           
+        for (let i = 0; i < this.todoList.length; i++) {
             let difference = differenceInCalendarDays(this.todoList[i].getDate(), new Date());
-            if ( difference <= 7 && difference >= 0) {
+            if (difference <= 7 && difference >= 0) {
                 weekProject.addTodo(this.todoList[i])
             }
         }
         return weekProject.getTodo();
 
+    }
+
+    removeTodo(id) {
+        let i = this.getTodoIndex(id);
+
+
+        let project = this.todoList[i].getProject();
+        let j = this.getProjectIndex(project);
+        if (j >= 0) {
+            this.projectList[j].removeTodo(id);
+        }
+
+        this.todoList.splice(i, 1);
+    }
+
+    removeProject(id) {
+        let i = this.getProjectIndex(id);
+
+        let todos = this.projectList[i].getTodo();
+        
+        todos.forEach(todo => this.removeTodo(todo.getName()));
+
+        this.projectList.splice(i,1);
+    }
+
+    getTodoIndex(id) {
+        let found = false;
+        let i = 0;
+        while (!found) {
+            if (this.todoList[i].getName() == id) {
+                found = true;
+                return i;
+            }
+            i++;
+        }
+    }
+
+    getProjectIndex(project) {
+        if (project != 'Inbox') {
+            let found = false;
+            let j = 0;
+            while (!found) {
+                if (this.projectList[j].getName() == project) {
+                    found = true;
+                    return j;
+                }
+                j++;
+            }
+        }
+        return -1;
     }
 }
 
@@ -73,8 +140,4 @@ let localStorage = new Storage();
 localStorage.createProject('Inbox');
 localStorage.createProject('Today');
 localStorage.createProject('This Week');
-localStorage.createProject('Leetcode');
-
-localStorage.createTodo('study', 'hi', '2022-10-24', 'high', 'Leetcode');
-
 export { localStorage };
