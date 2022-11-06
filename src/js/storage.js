@@ -1,6 +1,7 @@
 import { Project } from './project.js';
 import { Todo } from './todo.js';
 import { isToday, differenceInCalendarDays } from 'date-fns';
+import { createProjectElement } from './ui.js';
 
 class Storage {
     projectList = [];
@@ -41,9 +42,28 @@ class Storage {
         return this.projectList;
     }
 
+    setProjectList(projects) {
+        this.projectList = [];
+        projects.forEach(project => this.createProject(project.name));
+        for (let i=3; i<projects.length; i++) {
+            createProjectElement(projects[i].name);
+        }
+    }
+
     getTodoList() {
         return this.todoList;
     }
+
+    setTodoList(todos) {
+        this.todoList = [];
+
+        function changeDueDate(date) {
+
+        }
+        todos.forEach(todo => this.createTodo(todo.title, todo.description, todo.dueDate, todo.priority, todo.project));
+
+    }
+
 
     checkDuplicateTodo(name) {
         if (this.todoList.some(todo => todo.getName() == name)) {
@@ -136,8 +156,5 @@ class Storage {
 
 
 // default Projects + Todo for the page
-let localStorage = new Storage();
-localStorage.createProject('Inbox');
-localStorage.createProject('Today');
-localStorage.createProject('This Week');
-export { localStorage };
+let myData = new Storage();
+export { myData };

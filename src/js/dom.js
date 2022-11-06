@@ -1,6 +1,7 @@
-import { localStorage } from './storage.js';
+import { myData } from './storage.js';
 import { displayProjectPage, createProjectElement, completeTodo, removeProjectElement} from './ui.js';
 import { format, startOfToday } from 'date-fns';
+import {populateStorage} from './index.js';
 
 function pageSet() {
     const projectBtns = document.querySelectorAll('.project');
@@ -27,17 +28,18 @@ function newProject() {
      
         if (btn.getAttribute('id') == 'add') {
             let name = document.getElementById('addProjectInput').value;
-            if (name.length > 0 && localStorage.checkDuplicateProject(name)) {
-                localStorage.createProject(name); 
+            if (name.length > 0 && myData.checkDuplicateProject(name)) {
+                myData.createProject(name); 
                 createProjectElement(name);
                 pageSet();
                 displayProjectPage(name);
                 clearTodoPrompt();
-            } else if (!localStorage.checkDuplicateProject(name)) {
+            } else if (!myData.checkDuplicateProject(name)) {
                 alert("You cannot have duplicate project names.");
             }
             document.getElementById('addProjectInput').value = '';
             deleteProject();
+            populateStorage();
         } else if (btn.getAttribute('id') == 'cancel') {
             document.getElementById('addProjectInput').value = '';
         }   
@@ -54,9 +56,10 @@ function newTodo() {
             clearTodoPrompt();
         } else if (btn.getAttribute('id') == 'saveEdit') {
             let name = document.getElementById('todoName').value;
-            localStorage.removeTodo(name);
+            myData.removeTodo(name);
             createNewTodo();
             saveEdit();
+            
         }
     }));
 }
@@ -98,7 +101,7 @@ function createNewTodo() {
     let dueDate = document.getElementById('dueDate').value;
     let priority = document.getElementById('priority').value;
     let project = document.getElementById('project').value;
-    localStorage.createTodo(name, description, dueDate, priority, project);
+    myData.createTodo(name, description, dueDate, priority, project);
 
     //refresh current page
     let bodyTitle = document.querySelector('.bodyTitle');
@@ -106,6 +109,7 @@ function createNewTodo() {
     clearTodoPrompt();
     expandTodo();
     setUpEditBtn();
+    populateStorage();
 }
 
 function dateMin() {
@@ -143,9 +147,9 @@ function handleExpand(todo) {
     } else {
         let description = document.createElement('div');
         description.classList.add('description');     
-        // todo Index in localStorage
-        let i = localStorage.getTodoIndex(todo.parentElement.getAttribute('id'));
-        description.textContent = localStorage.getTodoList()[i].getDescription  ();
+        // todo Index in myData
+        let i = myData.getTodoIndex(todo.parentElement.getAttribute('id'));
+        description.textContent = myData.getTodoList()[i].getDescription  ();
         todo.appendChild(description);
         todo.classList.add('expanded');
     }
@@ -160,7 +164,7 @@ function setUpEditBtn() {
 
         let nameInput = document.querySelector('#todoName');
         nameInput.setAttribute('disabled', 'disabled');
-        let todo = localStorage.getTodo(editBtn.parentElement.getAttribute('id'));
+        let todo = myData.getTodo(editBtn.parentElement.getAttribute('id'));
 
         document.getElementById('todoName').value = todo.getName();
         document.getElementById('todoDescription').value = todo.getDescription();;  
@@ -193,15 +197,18 @@ function deleteProject() {
     const deleteProject = document.querySelectorAll('.delProject');
     deleteProject.forEach(btn => btn.addEventListener('click', (e) => {
         let projectName = btn.parentElement.getAttribute('id');
-        localStorage.removeProject(projectName);
+        myData.removeProject(projectName);
         removeProjectElement(projectName);
         btn.outerHTML = btn.outerHTML;
         displayProjectPage('Inbox');
 
         let projectInput = document.querySelector(`div.todoPrompt option[value=${projectName}]`);
         projectInput.parentElement.removeChild(projectInput);
+        populateStorage();
     }))
 }
+
+
 
 export {
     pageSet,

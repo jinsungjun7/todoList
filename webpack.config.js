@@ -1,5 +1,7 @@
 const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // installed via npm
+
 
 module.exports = {
   mode: "development",
@@ -18,7 +20,7 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: "[name][ext]",
-    clean: true,
+    // clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -27,6 +29,9 @@ module.exports = {
       myPageHeader: 'What Todo?',
       template: './src/index.html',
       filename: './index.html'
+    }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["**/*", "!*.jpg"]
     })
   ],
   module: {

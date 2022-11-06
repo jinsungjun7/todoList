@@ -1,4 +1,4 @@
-import {localStorage} from './storage.js';
+import {myData} from './storage.js';
 import {Project} from './project.js';
 import { format } from 'date-fns';
 import {handleExpand} from './dom.js';
@@ -7,7 +7,7 @@ function displayProjectPage(btnId) {
     let bodyTitle = document.querySelector('.bodyTitle');
     const todoListElement = document.querySelector('.todoList');
     todoListElement.innerHTML = "";
-    let projectList = localStorage.getProjectList();
+    let projectList = myData.getProjectList();
     for (let i=0; i < projectList.length; i++) {
         let name = projectList[i].getName();
         if (name == btnId) {
@@ -17,14 +17,14 @@ function displayProjectPage(btnId) {
             if (name == 'Today' || name == 'This Week') {
                 addTodo.classList.add('hide');
                 if (name == 'Today') {
-                    todoList = localStorage.generateToday();
+                    todoList = myData.generateToday();
                 } else {
-                    todoList = localStorage.generateWeek();
+                    todoList = myData.generateWeek();
                 }
             } else {
                 addTodo.classList.remove('hide');
                 if (name == 'Inbox') {
-                    todoList = localStorage.getTodoList();
+                    todoList = myData.getTodoList();
                 } else {
                     todoList = project.getTodo();
                 }
@@ -118,7 +118,7 @@ function completeTodo() {
     const completeBtns = document.querySelectorAll('.completeBtn');
     completeBtns.forEach(btn => btn.addEventListener('click', (e) => {
             
-        localStorage.removeTodo(btn.getAttribute('id'));
+        myData.removeTodo(btn.getAttribute('id'));
         btn.parentElement.classList.add('complete');
 
         let todoContent = btn.parentElement.querySelector('.todoContent');
@@ -135,7 +135,7 @@ function completeTodo() {
 function todoNameChecker() {
     const name = document.getElementById('todoName')
     name.addEventListener('input', (e) => {
-        if (!localStorage.checkDuplicateTodo(name.value)) {
+        if (!myData.checkDuplicateTodo(name.value)) {
             name.setCustomValidity("You cannot have two Todos with the same name!");
         } else {
             name.setCustomValidity("");

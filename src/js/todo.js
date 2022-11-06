@@ -1,4 +1,4 @@
-import {parseISO} from 'date-fns';
+import {format} from 'date-fns';
 
 
 class Todo {
@@ -9,9 +9,13 @@ class Todo {
         // appending the current time to correct any timezone discrepancy
         let now = new Date();
 
+        if (dueDate.length > 10) {
+            dueDate = new Date(dueDate);
+            dueDate = format(dueDate, 'yyyy-MM-dd');
+        }
         dueDate = dueDate.split('-');
-        this.dueDate = new Date(dueDate[0], Number(dueDate[1])-1, dueDate[2], now.getHours(), now.getMinutes(),now.getSeconds() );
-
+        this.dueDate = new Date(dueDate[0], Number(dueDate[1]-1), dueDate[2], now.getHours(), now.getMinutes(),now.getSeconds() );
+    
 
         this.priority = priority;
         this.project = project;
